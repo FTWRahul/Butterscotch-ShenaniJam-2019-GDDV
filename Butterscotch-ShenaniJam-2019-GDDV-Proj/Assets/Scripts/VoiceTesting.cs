@@ -9,7 +9,7 @@ public class VoiceTesting : MonoBehaviour
 {
     private KeywordRecognizer keywordRecog;
     [SerializeField]
-    List<string> keywordList;
+    public List<string> keywordList;
 
     void Start()
     {
