@@ -126,7 +126,7 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 712362733}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &167247809
+--- !u!114 &167247813
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -149,7 +149,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 167247809}
+      objectReference: {fileID: 167247813}
     - target: {fileID: 8526885374092256094, guid: c98e87814577f8a48b1fe1be1eef51c3,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
