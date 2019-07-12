@@ -8,11 +8,11 @@ public class PlayerLook : MonoBehaviour
     public Transform playerBody;
     float xAxisClamp = 0;
 
-    void Awake()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    //void Awake()
+    //{
+    //    Cursor.lockState = CursorLockMode.Locked;
+    //    Cursor.visible = false;
+    //}
 
     void Update ()
     {

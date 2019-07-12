@@ -659,6 +659,7 @@ PlayerSettings:
       daydreamIconForeground: {fileID: 0}
       daydreamIconBackground: {fileID: 0}
   cloudServicesEnabled:
+    Collab: 0
     UNet: 1
   luminIcon:
     m_Name: 
@@ -679,10 +680,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 6
-  cloudProjectId: 
+  cloudProjectId: 093a3019-b788-48a8-83ce-22c6b70c4384
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Butterscotch-ShenaniJam-2019-GDDV-Proj
+  organizationId: markelovdp
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0
