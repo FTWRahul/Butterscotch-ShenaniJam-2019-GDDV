@@ -12,7 +12,6 @@ public class VoiceTesting : NetworkBehaviour
     private KeywordRecognizer keywordRecog;
     [SerializeField]
     public List<string> keywordList;
-    [SyncVar]
     public Text text;
     public AudioSource playerAudioSource;
     PlayerMove playerMove;
@@ -23,9 +22,9 @@ public class VoiceTesting : NetworkBehaviour
     [Range(0,1)]
     public float decayMultiplyer;
 
-    void Start()
+    public override void OnStartClient()
     {
-        if(hasAuthority)
+        if (hasAuthority)
         {
             playerMove = GetComponent<PlayerMove>();
             //playerAudioSource = GetComponent<AudioSource>();
@@ -39,8 +38,24 @@ public class VoiceTesting : NetworkBehaviour
             keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
             keywordRecog.Start();
         }
-
     }
+    //void Start()
+    //{
+    //    if(hasAuthority)
+    //    {
+    //        playerMove = GetComponent<PlayerMove>();
+    //        //playerAudioSource = GetComponent<AudioSource>();
+    //        //playerAudioSource.clip = Microphone.Start(null, true, 10, 44100);
+    //        //playerAudioSource.mute = false;
+    //        ////playerAudioSource.loop = true;
+    //        //while (!(Microphone.GetPosition(null) > 0)){ Debug.Log("Nada"); }
+    //        //Debug.Log("Here");
+    //        //playerAudioSource.Play();
+    //        keywordRecog = new KeywordRecognizer(keywordList.ToArray());
+    //        keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
+    //        keywordRecog.Start();
+    //    }
+    //}
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
