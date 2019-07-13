@@ -107,8 +107,7 @@ public class PlayerMove : NetworkBehaviour
         transform.rotation = Quaternion.Euler(targetRotBody);
     }
 
-    [Command]
-    public void CmdTextBubbles()
+    public void TextBubbles()
     {
         TextBubble.Complete();
         voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);

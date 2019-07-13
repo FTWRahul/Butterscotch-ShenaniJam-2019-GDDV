@@ -64,7 +64,7 @@ public class VoiceTesting : NetworkBehaviour
         if(speedMultiplyer < maxSpeedMultiplyer)
         {
             speedMultiplyer += speedMultiplyerFactor;
-            playerMove.CmdTextBubbles();
+            playerMove.TextBubbles();
         }
         //StringBuilder builder = new StringBuilder();
         //builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
