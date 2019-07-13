@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class PlayerMove : MonoBehaviour
+public class PlayerMove : NetworkBehaviour
 {
     public CharacterController charControl;
 
@@ -13,10 +14,18 @@ public class PlayerMove : MonoBehaviour
     private Vector3 moveDir;
     private float verticalSpeed;
 
+    public static float mouseSensitivity = 2f;
+    public Transform cameraTransform;
+    float xAxisClamp = 0;
+
 
     void Update ()
     {
-        MovePlayer();
+        if (hasAuthority)
+        {
+            MovePlayer();
+            RotateCamera();
+        }
     }
 
     void MovePlayer()
@@ -39,50 +48,40 @@ public class PlayerMove : MonoBehaviour
         }
 
         moveDir.y = verticalSpeed;
-
-
-
-        //float horiz = Input.GetAxis("Horizontal");
-        //float vert = Input.GetAxis("Vertical");
-
-        ////Multiplaying the inputs with direction vectors and speed, normilizing with time.
-        //Vector3 moveDirSide = transform.right * horiz * walkSpeed * Time.deltaTime;
-        //Vector3 moveDirForward = transform.forward * vert * walkSpeed * Time.deltaTime;
-
-
-        //Vector3 finalMoveDirection = (moveDirSide + moveDirForward).normalized * walkSpeed * Time.deltaTime;
-        //Making the char controller do a Move by passing our desired vectors, The physics calculations are done in the PlayerMotor class.
         charControl.Move(moveDir);
-
     }
 
+    void RotateCamera()
+    {
+        float mouseX = Input.GetAxisRaw("Mouse X");
+        float mouseY = Input.GetAxisRaw("Mouse Y");
 
+        float rotAmountX = mouseX * mouseSensitivity;
+        float rotAmountY = mouseY * mouseSensitivity;
 
-    //public Vector3 Tick()
-    //{
-    //    if ((charController.isGrounded && internalTimer > 0))
-    //    {
-    //        if (Input.GetButtonDown("Jump"))
-    //        {
-    //            internalTimer = -0.5f;
-    //            Jump();
-    //        }
-    //    }
-    //    else
-    //    {
-    //        if (internalTimer < 1.5f)
-    //        {
-    //            internalTimer += Time.deltaTime;
-    //        }
+        xAxisClamp -= rotAmountY;
 
-    //        verticalVelocity -= gravity * Time.deltaTime;
-    //    }
-    //    Vector3 moveDir = new Vector3(0, verticalVelocity, 0);
+        Vector3 targetRotCam = cameraTransform.rotation.eulerAngles;
+        Vector3 targetRotBody = transform.rotation.eulerAngles;
 
-    //    return moveDir * Time.deltaTime;
-    //}
-    //void Jump()
-    //{
-    //    verticalVelocity = jumpForce;
-    //}
+        targetRotCam.x -= rotAmountY;
+        targetRotCam.z = 0;
+        targetRotBody.y += rotAmountX;
+
+        if (xAxisClamp > 90)
+        {
+            xAxisClamp = 90;
+            targetRotCam.x = 90;
+        }
+        else if (xAxisClamp < -90)
+        {
+            xAxisClamp = -90;
+            targetRotCam.x = 270;
+        }
+
+        //targetRot.y += rotAmountX;
+
+        cameraTransform.rotation = Quaternion.Euler(targetRotCam);
+        transform.rotation = Quaternion.Euler(targetRotBody);
+    }
 }
