@@ -5,7 +5,8 @@ using UnityEngine.Networking;
 
 public class PlayerMove : NetworkBehaviour
 {
-
+    public float speedMultiplyer;
+    public float maxSpeedMultiplyer;
     public float walkSpeed;
     public float jumpForce;
     public float gravity;
@@ -40,7 +41,16 @@ public class PlayerMove : NetworkBehaviour
 
     void MovePlayer()
     {
-        moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * walkSpeed * Time.deltaTime;
+        if (Input.GetKey(KeyCode.U))
+        {
+            speedMultiplyer += 0.1f;
+        }
+        else if (Input.GetKey(KeyCode.J))
+        {
+            speedMultiplyer -= 0.1f;
+        }
+        speedMultiplyer = Mathf.Clamp(speedMultiplyer, 0, maxSpeedMultiplyer);
+        moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * walkSpeed * speedMultiplyer * Time.deltaTime;
 
         moveDir = transform.rotation * moveDir;
 
