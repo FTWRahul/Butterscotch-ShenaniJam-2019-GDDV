@@ -35,6 +35,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 558037096454452855}
+  - {fileID: 809551856911316627}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -100,10 +101,12 @@ MonoBehaviour:
   walkSpeed: 7
   jumpForce: 0.25
   gravity: 1
+  rayLength: 0.11
   charControl: {fileID: 3186474669906606453}
   cameraPrefab: {fileID: 7052634897096668782, guid: 27c3497b72cdfaf408c4614bf3736e03,
     type: 3}
   cameraTransform: {fileID: 0}
+  RayRoot: {fileID: 8687452284984140432}
   spawnedCam: 0
 --- !u!143 &3186474669906606453
 CharacterController:
@@ -281,6 +284,36 @@ MonoBehaviour:
     m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: New Text
+--- !u!1 &8687452284984140432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 809551856911316627}
+  m_Layer: 0
+  m_Name: RayRoot
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &809551856911316627
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8687452284984140432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -1.0067, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3186474669906606459}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9191027333927856343
 GameObject:
   m_ObjectHideFlags: 0

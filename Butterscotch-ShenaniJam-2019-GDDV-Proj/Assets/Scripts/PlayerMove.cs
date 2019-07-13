@@ -12,6 +12,7 @@ public class PlayerMove : NetworkBehaviour
     public float walkSpeed;
     public float jumpForce;
     public float gravity;
+    public float rayLength;
 
     private Vector3 moveDir;
     private float verticalSpeed;
@@ -22,6 +23,7 @@ public class PlayerMove : NetworkBehaviour
     public CharacterController charControl;
     public GameObject cameraPrefab;
     public Transform cameraTransform;
+    public GameObject RayRoot;
 
     public bool spawnedCam;
 
@@ -43,27 +45,18 @@ public class PlayerMove : NetworkBehaviour
 
             MovePlayer();
             RotateCamera();
-            Debug.Log("PLAYER MOVE: " +speedMultiplyer);
+            //Debug.Log("PLAYER MOVE: " +speedMultiplyer);
 
         }
     }
 
     void MovePlayer()
     {
-        if (Input.GetKey(KeyCode.U))
-        {
-            speedMultiplyer += 0.1f;
-        }
-        else if (Input.GetKey(KeyCode.J))
-        {
-            speedMultiplyer -= 0.1f;
-        }
-        speedMultiplyer = Mathf.Clamp(speedMultiplyer, 0, maxSpeedMultiplyer);
         moveDir = new Vector3(Input.GetAxisRaw("Horizontal"), 0, Input.GetAxisRaw("Vertical")).normalized * walkSpeed * speedMultiplyer * Time.deltaTime;
 
         moveDir = transform.rotation * moveDir;
 
-        if (charControl.isGrounded && Input.GetButtonDown("Jump"))
+        if (charControl.isGrounded && Input.GetButtonDown("Jump") && Physics.Raycast(RayRoot.transform.position, -Vector3.up, rayLength))
         {
             verticalSpeed = jumpForce;
         }

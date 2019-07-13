@@ -38,7 +38,7 @@ public class VoiceTesting : MonoBehaviour
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        Debug.Log(args.text + " " + "("+ args.confidence + ")");
+        //Debug.Log(args.text + " " + "("+ args.confidence + ")");
         text.text = args.text;
         if(speedMultiplyer < maxSpeedMultiplyer)
         {
@@ -54,7 +54,7 @@ public class VoiceTesting : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(speedMultiplyer);
+        //Debug.Log(speedMultiplyer);
 
         if (speedMultiplyer > 1)
         {
