@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class PlayerMove : NetworkBehaviour
 {
@@ -23,12 +25,17 @@ public class PlayerMove : NetworkBehaviour
 
     public bool spawnedCam;
 
+    Sequence TextBubble;
+    VoiceTesting voiceScript;
+    Ease easeType;
+
     void Update ()
     {
         if (hasAuthority)
         {
             if (!spawnedCam)
             {
+                voiceScript = GetComponent<VoiceTesting>();
                 GameObject go = Instantiate(cameraPrefab, transform);
                 cameraTransform = go.transform;
                 spawnedCam = !spawnedCam;
@@ -36,6 +43,8 @@ public class PlayerMove : NetworkBehaviour
 
             MovePlayer();
             RotateCamera();
+            Debug.Log("PLAYER MOVE: " +speedMultiplyer);
+
         }
     }
 
@@ -103,5 +112,18 @@ public class PlayerMove : NetworkBehaviour
 
         cameraTransform.rotation = Quaternion.Euler(targetRotCam);
         transform.rotation = Quaternion.Euler(targetRotBody);
+    }
+
+    public void TextBubbles()
+    {
+        TextBubble.Complete();
+        voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+        voiceScript.text.GetComponent<Text>().color = Color.white;
+        voiceScript.text.transform.localPosition = Vector3.zero;
+
+        TextBubble = DOTween.Sequence();
+        TextBubble.Prepend(voiceScript.text.transform.DOLocalMove(Vector3.up * 2f , 1f).SetEase(easeType));
+        TextBubble.Join(voiceScript.text.transform.DOScale(0.01f, 1f).SetEase(easeType));
+        TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
     }
 }
