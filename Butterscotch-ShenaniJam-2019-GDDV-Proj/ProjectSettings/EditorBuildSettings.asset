@@ -11,4 +11,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dani_TestScene.unity
     guid: 6766c3ca2900c714cbc51f290bb3e4a6
+  - enabled: 1
+    path: Assets/Scenes/Scene_DJ.unity
+    guid: f6c43379fad885e4b90ec91b6f3bd92e
   m_configObjects: {}
