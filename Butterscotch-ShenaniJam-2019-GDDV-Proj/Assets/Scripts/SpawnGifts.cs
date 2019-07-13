@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class SpawnGifts : MonoBehaviour
+public class SpawnGifts : NetworkBehaviour
 {
     public GameObject[] spawnPositions;
     public GameObject giftsRoot;
@@ -13,6 +14,7 @@ public class SpawnGifts : MonoBehaviour
 
     private void Start()
     {
+
         GetSpawnArea();
     }
 
@@ -36,13 +38,15 @@ public class SpawnGifts : MonoBehaviour
             {
                 if (hit.collider.tag == "Ground")
                 {
-                    GameObject go = Instantiate(giftPrefab, hit.point, Quaternion.Euler(0, Random.Range(0, 360), 0), giftsRoot.transform);
-                }
-                else
-                {
-                    //GetPointOnMesh(pos);
+                    CmdSpawnGift(hit.point);
                 }
             }
+        }
     }
-}
+
+    void CmdSpawnGift(Vector3 pos)
+    {
+        GameObject go = Instantiate(giftPrefab, pos, Quaternion.Euler(0, Random.Range(0, 360), 0), giftsRoot.transform);
+        NetworkServer.Spawn(go);
+    }
 }
