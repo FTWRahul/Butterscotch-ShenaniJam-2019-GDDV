@@ -4,12 +4,14 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
+using UnityEngine.UI;
 
 public class VoiceTesting : MonoBehaviour
 {
     private KeywordRecognizer keywordRecog;
     [SerializeField]
     public List<string> keywordList;
+    public Text text;
 
     void Start()
     {
@@ -21,6 +23,7 @@ public class VoiceTesting : MonoBehaviour
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
         Debug.Log(args.text + " " + "("+ args.confidence + ")");
+        text.text = args.text;
         //StringBuilder builder = new StringBuilder();
         //builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
         //builder.AppendFormat("\tTimestamp: {0}{1}", args.phraseStartTime, Environment.NewLine);
