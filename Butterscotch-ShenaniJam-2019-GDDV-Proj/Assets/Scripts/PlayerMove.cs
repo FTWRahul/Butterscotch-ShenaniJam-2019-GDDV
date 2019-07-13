@@ -41,6 +41,7 @@ public class PlayerMove : NetworkBehaviour
                 GameObject go = Instantiate(cameraPrefab, transform);
                 cameraTransform = go.transform;
                 spawnedCam = !spawnedCam;
+                Debug.Log(GetComponent<NetworkIdentity>().netId.ToString());
             }
 
             MovePlayer();
@@ -108,26 +109,33 @@ public class PlayerMove : NetworkBehaviour
     }
 
     [Command]
-    public void CmdTextBubbles(string identity)
+    public void CmdTextBubbles(string identity, string inText)
     {
         //identity.playerControllerId.ToString();
+        if (GetComponent<NetworkIdentity>().netId.ToString() == identity)
+        {
+            Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
 
-        RpcTextBubble(identity);
-        TextBubble.Complete();
-        voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
-        voiceScript.text.GetComponent<Text>().color = Color.white;
-        voiceScript.text.transform.localPosition = Vector3.zero;
-        TextBubble = DOTween.Sequence();
-        TextBubble.Prepend(voiceScript.text.transform.DOLocalMove(Vector3.up * 2f , 1f).SetEase(easeType));
-        TextBubble.Join(voiceScript.text.transform.DOScale(0.01f, 1f).SetEase(easeType));
-        TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
+            voiceScript.text.text = inText;
+            RpcTextBubble(identity, inText);
+            TextBubble.Complete();
+            voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+            voiceScript.text.GetComponent<Text>().color = Color.white;
+            voiceScript.text.transform.localPosition = Vector3.zero;
+            TextBubble = DOTween.Sequence();
+            TextBubble.Prepend(voiceScript.text.transform.DOLocalMove(Vector3.up * 2f, 1f).SetEase(easeType));
+            TextBubble.Join(voiceScript.text.transform.DOScale(0.01f, 1f).SetEase(easeType));
+            TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
+        }
     }
 
     [ClientRpc]
-    public void RpcTextBubble(string identity)
+    public void RpcTextBubble(string identity, string inText)
     {
         if(GetComponent<NetworkIdentity>().netId.ToString() == identity)
         {
+            Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
+            voiceScript.text.text = inText;
             TextBubble.Complete();
             voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
             voiceScript.text.GetComponent<Text>().color = Color.white;

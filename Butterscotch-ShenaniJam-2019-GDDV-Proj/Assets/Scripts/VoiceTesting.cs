@@ -21,10 +21,10 @@ public class VoiceTesting : NetworkBehaviour
     public float maxSpeedMultiplyer;
     [Range(0,1)]
     public float decayMultiplyer;
-
+    bool spawnedCam;
     public override void OnStartClient()
     {
-        //if (hasAuthority)
+        if (hasAuthority)
         {
             playerMove = GetComponent<PlayerMove>();
             //playerAudioSource = GetComponent<AudioSource>();
@@ -59,12 +59,14 @@ public class VoiceTesting : NetworkBehaviour
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
-        //Debug.Log(args.text + " " + "("+ args.confidence + ")");
+        Debug.Log(args.text + " " + "("+ args.confidence + ")");
         text.text = args.text;
+
         if(speedMultiplyer < maxSpeedMultiplyer)
         {
             speedMultiplyer += speedMultiplyerFactor;
-            playerMove.CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString());
+            playerMove.CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString(), args.text);
+            Debug.Log("SENT IDENTITY" + GetComponent<NetworkIdentity>().netId.ToString());
         }
         //StringBuilder builder = new StringBuilder();
         //builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
@@ -78,11 +80,24 @@ public class VoiceTesting : NetworkBehaviour
         //Debug.Log(speedMultiplyer);
         if(hasAuthority)
         {
+            if (!spawnedCam)
+            {
+
+                playerMove = GetComponent<PlayerMove>();
+                keywordRecog = new KeywordRecognizer(keywordList.ToArray());
+                keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
+                keywordRecog.Start();
+                spawnedCam = !spawnedCam;
+            }
             if (speedMultiplyer > 1)
             {
                 playerMove.speedMultiplyer = speedMultiplyer;
                 speedMultiplyer -= Time.deltaTime * decayMultiplyer;
             }
-        }       
+        }
+        else
+        {
+
+        }
     }
 }
