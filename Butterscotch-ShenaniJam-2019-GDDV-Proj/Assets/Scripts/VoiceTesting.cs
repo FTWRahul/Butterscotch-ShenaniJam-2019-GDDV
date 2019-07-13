@@ -12,6 +12,7 @@ public class VoiceTesting : NetworkBehaviour
     private KeywordRecognizer keywordRecog;
     [SerializeField]
     public List<string> keywordList;
+    [SyncVar]
     public Text text;
     public AudioSource playerAudioSource;
     PlayerMove playerMove;
