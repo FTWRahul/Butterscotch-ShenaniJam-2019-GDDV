@@ -5,8 +5,9 @@ using System.Text;
 using UnityEngine;
 using UnityEngine.Windows.Speech;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 
-public class VoiceTesting : MonoBehaviour
+public class VoiceTesting : NetworkBehaviour
 {
     private KeywordRecognizer keywordRecog;
     [SerializeField]
@@ -23,17 +24,21 @@ public class VoiceTesting : MonoBehaviour
 
     void Start()
     {
-        playerMove = GetComponent<PlayerMove>();
-        //playerAudioSource = GetComponent<AudioSource>();
-        //playerAudioSource.clip = Microphone.Start(null, true, 10, 44100);
-        //playerAudioSource.mute = false;
-        ////playerAudioSource.loop = true;
-        //while (!(Microphone.GetPosition(null) > 0)){ Debug.Log("Nada"); }
-        //Debug.Log("Here");
-        //playerAudioSource.Play();
-        keywordRecog = new KeywordRecognizer(keywordList.ToArray());
-        keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
-        keywordRecog.Start();
+        if(hasAuthority)
+        {
+            playerMove = GetComponent<PlayerMove>();
+            //playerAudioSource = GetComponent<AudioSource>();
+            //playerAudioSource.clip = Microphone.Start(null, true, 10, 44100);
+            //playerAudioSource.mute = false;
+            ////playerAudioSource.loop = true;
+            //while (!(Microphone.GetPosition(null) > 0)){ Debug.Log("Nada"); }
+            //Debug.Log("Here");
+            //playerAudioSource.Play();
+            keywordRecog = new KeywordRecognizer(keywordList.ToArray());
+            keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
+            keywordRecog.Start();
+        }
+
     }
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
@@ -55,11 +60,13 @@ public class VoiceTesting : MonoBehaviour
     private void Update()
     {
         //Debug.Log(speedMultiplyer);
-
-        if (speedMultiplyer > 1)
+        if(hasAuthority)
         {
-            playerMove.speedMultiplyer = speedMultiplyer;
-            speedMultiplyer -= Time.deltaTime * decayMultiplyer;
-        }
+            if (speedMultiplyer > 1)
+            {
+                playerMove.speedMultiplyer = speedMultiplyer;
+                speedMultiplyer -= Time.deltaTime * decayMultiplyer;
+            }
+        }       
     }
 }
