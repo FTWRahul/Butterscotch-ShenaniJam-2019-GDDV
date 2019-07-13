@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 
 public class PlayerMove : NetworkBehaviour
 {
-    public CharacterController charControl;
 
     public float walkSpeed;
     public float jumpForce;
@@ -15,14 +14,25 @@ public class PlayerMove : NetworkBehaviour
     private float verticalSpeed;
 
     public static float mouseSensitivity = 2f;
-    public Transform cameraTransform;
     float xAxisClamp = 0;
 
+    public CharacterController charControl;
+    public GameObject cameraPrefab;
+    public Transform cameraTransform;
+
+    public bool spawnedCam;
 
     void Update ()
     {
         if (hasAuthority)
         {
+            if (!spawnedCam)
+            {
+                GameObject go = Instantiate(cameraPrefab, transform);
+                cameraTransform = go.transform;
+                spawnedCam = !spawnedCam;
+            }
+
             MovePlayer();
             RotateCamera();
         }

@@ -6,8 +6,6 @@ using UnityEngine.Networking;
 public class PlayerIdentity : NetworkBehaviour
 {
     public GameObject playerPersonPrefab;
-    public GameObject playerPersona;
-    public GameObject cameraPrefab;
 
 
     // Start is called before the first frame update
@@ -16,8 +14,6 @@ public class PlayerIdentity : NetworkBehaviour
         if (hasAuthority)
         {
             CmdSpawnMyUnit();
-            GameObject go = Instantiate(cameraPrefab, playerPersona.transform);
-            playerPersona.GetComponent<PlayerMove>().cameraTransform = go.transform;
         }
     }
 
@@ -27,8 +23,6 @@ public class PlayerIdentity : NetworkBehaviour
     {
         // We are guaranteed to be on the server right now.
         GameObject go = Instantiate(playerPersonPrefab);
-
-        playerPersona = go;
 
         //go.GetComponent<NetworkIdentity>().AssignClientAuthority( connectionToClient );
 
