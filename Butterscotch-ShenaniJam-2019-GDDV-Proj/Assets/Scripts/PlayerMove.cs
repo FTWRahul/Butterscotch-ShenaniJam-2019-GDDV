@@ -107,16 +107,35 @@ public class PlayerMove : NetworkBehaviour
         transform.rotation = Quaternion.Euler(targetRotBody);
     }
 
-    public void TextBubbles()
+    [Command]
+    public void CmdTextBubbles(NetworkIdentity identity)
     {
+        //identity.playerControllerId.ToString();
+
+        RpcTextBubble(identity);
         TextBubble.Complete();
         voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
         voiceScript.text.GetComponent<Text>().color = Color.white;
         voiceScript.text.transform.localPosition = Vector3.zero;
-
         TextBubble = DOTween.Sequence();
         TextBubble.Prepend(voiceScript.text.transform.DOLocalMove(Vector3.up * 2f , 1f).SetEase(easeType));
         TextBubble.Join(voiceScript.text.transform.DOScale(0.01f, 1f).SetEase(easeType));
         TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
+    }
+
+    [TargetRpc]
+    public void RpcTextBubble(NetworkIdentity identity)
+    {
+        if(GetComponent<NetworkIdentity>() == identity)
+        {
+            TextBubble.Complete();
+            voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
+            voiceScript.text.GetComponent<Text>().color = Color.white;
+            voiceScript.text.transform.localPosition = Vector3.zero;
+            TextBubble = DOTween.Sequence();
+            TextBubble.Prepend(voiceScript.text.transform.DOLocalMove(Vector3.up * 2f, 1f).SetEase(easeType));
+            TextBubble.Join(voiceScript.text.transform.DOScale(0.01f, 1f).SetEase(easeType));
+            TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
+        }
     }
 }

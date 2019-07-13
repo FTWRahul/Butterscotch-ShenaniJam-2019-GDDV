@@ -24,7 +24,7 @@ public class VoiceTesting : NetworkBehaviour
 
     public override void OnStartClient()
     {
-        if (hasAuthority)
+        //if (hasAuthority)
         {
             playerMove = GetComponent<PlayerMove>();
             //playerAudioSource = GetComponent<AudioSource>();
@@ -64,7 +64,7 @@ public class VoiceTesting : NetworkBehaviour
         if(speedMultiplyer < maxSpeedMultiplyer)
         {
             speedMultiplyer += speedMultiplyerFactor;
-            playerMove.TextBubbles();
+            playerMove.CmdTextBubbles(GetComponent<NetworkIdentity>());
         }
         //StringBuilder builder = new StringBuilder();
         //builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
