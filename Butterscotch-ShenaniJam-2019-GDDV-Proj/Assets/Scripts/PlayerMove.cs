@@ -108,7 +108,7 @@ public class PlayerMove : NetworkBehaviour
     }
 
     [Command]
-    public void CmdTextBubbles(NetworkIdentity identity)
+    public void CmdTextBubbles(string identity)
     {
         //identity.playerControllerId.ToString();
 
@@ -124,9 +124,9 @@ public class PlayerMove : NetworkBehaviour
     }
 
     [ClientRpc]
-    public void RpcTextBubble(NetworkIdentity identity)
+    public void RpcTextBubble(string identity)
     {
-        if(GetComponent<NetworkIdentity>() == identity)
+        if(GetComponent<NetworkIdentity>().netId.ToString() == identity)
         {
             TextBubble.Complete();
             voiceScript.text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
