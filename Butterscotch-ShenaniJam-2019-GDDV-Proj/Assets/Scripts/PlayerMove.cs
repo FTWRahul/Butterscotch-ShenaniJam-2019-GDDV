@@ -123,7 +123,7 @@ public class PlayerMove : NetworkBehaviour
         TextBubble.Join(voiceScript.text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
     }
 
-    [TargetRpc]
+    [ClientRpc]
     public void RpcTextBubble(NetworkIdentity identity)
     {
         if(GetComponent<NetworkIdentity>() == identity)
