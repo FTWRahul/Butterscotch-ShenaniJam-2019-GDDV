@@ -79,6 +79,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerPersonPrefab: {fileID: 3186474669906606463, guid: fe3d331ec3daad64cba3ea01691bfbd9,
     type: 3}
-  playerPersona: {fileID: 0}
-  cameraPrefab: {fileID: 7052634897096668782, guid: 27c3497b72cdfaf408c4614bf3736e03,
+  santaPersonPrefab: {fileID: 3186474669906606463, guid: a68ac3f2ce7849849b98996ce2464b05,
     type: 3}
+  isSanta: 0
