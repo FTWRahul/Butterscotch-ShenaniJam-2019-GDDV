@@ -35,6 +35,7 @@ public class VoiceTesting : NetworkBehaviour
     {
         if (hasAuthority)
         {
+
             playerMove = GetComponent<PlayerMove>();
             keywordRecog = new KeywordRecognizer(keywordList.ToArray());
             keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
@@ -71,7 +72,6 @@ public class VoiceTesting : NetworkBehaviour
 
             if(Input.GetKeyDown(KeyCode.P))
             {
-                //CmdRealPlayerCall(GetComponent<NetworkIdentity>().netId.ToString());
                 RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
                 //StartSync = true;
             }
@@ -82,12 +82,6 @@ public class VoiceTesting : NetworkBehaviour
                 speedMultiplyer -= Time.deltaTime * decayMultiplyer;
             }
         }
-    }
-
-    [Command]
-    void CmdRealPlayerCall(string id)
-    {
-        RealPlayerCall(connectionToClient, id);
     }
 
     [Client]
@@ -113,12 +107,11 @@ public class VoiceTesting : NetworkBehaviour
     [Command]
     public void CmdTextBubbles(string identity, string inText)
     {
-        Debug.Log("CMD Fired!");
+        //Debug.Log("CMD Fired!");
       
-        Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
+        //Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
 
         RpcTextBubble(identity, inText);
-        
     }
 
     [ClientRpc]
@@ -126,7 +119,7 @@ public class VoiceTesting : NetworkBehaviour
     {
         if (GetComponent<NetworkIdentity>().netId.ToString() == identity)
         {
-            Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
+            //Debug.Log("CHECKING AGAINST THS ID " + GetComponent<NetworkIdentity>().netId.ToString());
             text.text = inText;
             TextBubble.Complete();
             text.transform.localScale = new Vector3(0.005f, 0.005f, 0.005f);
