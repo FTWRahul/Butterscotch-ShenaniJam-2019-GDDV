@@ -24,48 +24,23 @@ public class VoiceTesting : NetworkBehaviour
     public float decayMultiplyer;
     bool spawnedCam;
 
-    public Vector3 localPlayer;
-    [SerializeField]
-    bool isRealPlayer;
-    bool StartSync;
-
     Sequence TextBubble;
     Ease easeType;
     public Color TextColour;
+
+    [SerializeField]
+    bool isRealPlayer;
+
     public override void OnStartClient()
     {
         if (hasAuthority)
         {
             playerMove = GetComponent<PlayerMove>();
-            //playerAudioSource = GetComponent<AudioSource>();
-            //playerAudioSource.clip = Microphone.Start(null, true, 10, 44100);
-            //playerAudioSource.mute = false;
-            ////playerAudioSource.loop = true;
-            //while (!(Microphone.GetPosition(null) > 0)){ Debug.Log("Nada"); }
-            //Debug.Log("Here");
-            //playerAudioSource.Play();
             keywordRecog = new KeywordRecognizer(keywordList.ToArray());
             keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
             keywordRecog.Start();
         }
     }
-    //void Start()
-    //{
-    //    if(hasAuthority)
-    //    {
-    //        playerMove = GetComponent<PlayerMove>();
-    //        //playerAudioSource = GetComponent<AudioSource>();
-    //        //playerAudioSource.clip = Microphone.Start(null, true, 10, 44100);
-    //        //playerAudioSource.mute = false;
-    //        ////playerAudioSource.loop = true;
-    //        //while (!(Microphone.GetPosition(null) > 0)){ Debug.Log("Nada"); }
-    //        //Debug.Log("Here");
-    //        //playerAudioSource.Play();
-    //        keywordRecog = new KeywordRecognizer(keywordList.ToArray());
-    //        keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
-    //        keywordRecog.Start();
-    //    }
-    //}
 
     private void OnPhraseRecognized(PhraseRecognizedEventArgs args)
     {
@@ -76,30 +51,14 @@ public class VoiceTesting : NetworkBehaviour
         {
             speedMultiplyer += speedMultiplyerFactor;
             CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString(), args.text.ToString());
-            Debug.Log("SENT IDENTITY" + GetComponent<NetworkIdentity>().netId.ToString());
+            //Debug.Log("SENT IDENTITY" + GetComponent<NetworkIdentity>().netId.ToString());
         }
-        //StringBuilder builder = new StringBuilder();
-        //builder.AppendFormat("{0} ({1}){2}", args.text, args.confidence, Environment.NewLine);
-        //builder.AppendFormat("\tTimestamp: {0}{1}", args.phraseStartTime, Environment.NewLine);
-        //builder.AppendFormat("\tDuration: {0} seconds{1}", args.phraseDuration.TotalSeconds, Environment.NewLine);
-        //Debug.Log(builder.ToString());
     }
 
     private void Update()
     {
-        //Debug.Log(speedMultiplyer);
         if(hasAuthority)
         {
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                //CmdRealPlayerCall(GetComponent<NetworkIdentity>().netId.ToString());
-                RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
-                //StartSync = true;
-            }
-            if (Input.GetButtonDown("Jump"))
-            {
-                CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString(), "KeyPressTest");
-            }
             if (!spawnedCam)
             {
                 
@@ -109,21 +68,19 @@ public class VoiceTesting : NetworkBehaviour
                 keywordRecog.Start();
                 spawnedCam = !spawnedCam;
             }
+
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                //CmdRealPlayerCall(GetComponent<NetworkIdentity>().netId.ToString());
+                RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
+                //StartSync = true;
+            }
+
             if (speedMultiplyer > 1)
             {
                 playerMove.speedMultiplyer = speedMultiplyer;
                 speedMultiplyer -= Time.deltaTime * decayMultiplyer;
             }
-
-            if(StartSync)
-            {
-                //CmdFindLocalPlayer(GetComponent<NetworkIdentity>().netId.ToString());
-                //text.transform.LookAt(localPlayer);
-            }
-        }
-        else
-        {
-
         }
     }
 
@@ -150,58 +107,6 @@ public class VoiceTesting : NetworkBehaviour
                     textScript.StartLookAt = true;
                 }
             }
-        }
-    }
-
-
-
-
-    [Command]
-    void CmdFindLocalPlayer(string identity)
-    {
-      RpcFindLocalPlayer(identity);
-    }
-
-    [ClientRpc]
-    void RpcFindLocalPlayer(string identity)
-    {
-        if(isRealPlayer)
-        {
-            NetworkTransform sendTransform = this.GetComponent<NetworkTransform>();
-            CmdSendPlayerTransform(sendTransform.targetSyncPosition, identity);
-            //NetworkIdentity[] netarray = FindObjectsOfType<NetworkIdentity>();
-            // for (int i = 0; i < netarray.Length; i++)
-            // {
-            //     if(GetComponent<NetworkIdentity>().netId.ToString() == identity)
-            //     {
-            //         Transform sendTransform = this.transform;
-            //         CmdSendPlayerTransform(sendTransform.position, identity);
-            //     }
-            // }
-            // //foreach (NetworkIdentity netId in netarray)
-            //{
-            //    if (GetComponent<NetworkIdentity>().netId.ToString() == identity)
-            //    {
-            //      //netId.gameObject.GetComponent<VoiceTesting>().localPlayer = GetComponent<Transform>();
-            //    }
-            //}
-
-            //BroadcastMessage("SetLocalPlayer", this.transform);
-        }
-    }
-
-    [Command]
-    void CmdSendPlayerTransform(Vector3 inPosition, string id)
-    {
-        RpcSendPlayerTransform(inPosition, id);
-    }
-
-    [ClientRpc]
-    void RpcSendPlayerTransform(Vector3 inPosition, string id)
-    {
-        if(GetComponent<NetworkIdentity>().netId.ToString() == id)
-        {
-            localPlayer = inPosition;
         }
     }
 
