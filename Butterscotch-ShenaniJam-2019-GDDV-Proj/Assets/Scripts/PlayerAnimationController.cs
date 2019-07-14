@@ -10,36 +10,36 @@ public class PlayerAnimationController : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponentInChildren<Animator>();
-        moveCont = GetComponentInParent<CharacterController>();
+        anim = GetComponent<Animator>();
+        moveCont = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        anim.SetBool(0, moveCont.isGrounded);
+        anim.SetBool("IsGrounded", moveCont.isGrounded);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetTrigger(1);
+            anim.SetTrigger("Jump");
         }
 
         //if(isDead)
         //{
-        //anim.SetTrigger(2);
+        //anim.SetTrigger("Dead");
         //}
 
         //if(recived hit)
         //{
-        //    anim.SetTrigger(3);
+        //    anim.SetTrigger("GetHit");
         //}
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            anim.SetTrigger(4);
-            anim.SetFloat(7, Random.Range(0, 1));
+            anim.SetTrigger("Kick");
+            anim.SetFloat("KickRandom", Random.Range(0, 1));
         }
 
-        //anim.SetFloat(5,horizontal(-1,1));
-        //anim.SetFloat(6,vertical(-1,1));
+        //anim.SetFloat("Horizontal_f",horizontal(-1,1));
+        //anim.SetFloat("Vertical_f",vertical(-1,1));
     }
 }

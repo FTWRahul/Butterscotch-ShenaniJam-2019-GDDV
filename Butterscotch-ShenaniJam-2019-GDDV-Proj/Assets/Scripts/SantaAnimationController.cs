@@ -10,26 +10,26 @@ public class SantaAnimationController : MonoBehaviour
 
     private void Start()
     {
-        anim = GetComponentInChildren<Animator>();
-        moveCont = GetComponentInParent<CharacterController>();
+        anim = GetComponent<Animator>();
+        moveCont = GetComponent<CharacterController>();
     }
 
     private void Update()
     {
-        anim.SetBool(0, moveCont.isGrounded);
+        anim.SetBool("IsGrounded", moveCont.isGrounded);
 
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            anim.SetTrigger(1);
+            anim.SetTrigger("Jump");
         }
 
         if (Input.GetKeyDown(KeyCode.F))
         {
-            anim.SetTrigger(2);
-            anim.SetFloat(5, Random.Range(0, 1));
-        }
+            anim.SetTrigger("Attack");
+            anim.SetFloat("AttackRandom", Random.Range(0, 1));
+        }   
 
-        //anim.SetFloat(3,horizontal(-1,1));
-        //anim.SetFloat(4,vertical(-1,1));
+        //anim.SetFloat("Horizontal_f",horizontal(-1,1));
+        //anim.SetFloat("Vertical_f",vertical(-1,1));
     }
 }
