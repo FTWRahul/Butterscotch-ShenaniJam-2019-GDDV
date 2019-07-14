@@ -6,20 +6,36 @@ using UnityEngine.Networking;
 public class PlayerIdentity : NetworkBehaviour
 {
     public GameObject playerPersonPrefab;
+    public GameObject santaPersonPrefab;
+    public bool isSanta;
 
     void Start()
     {
         if (hasAuthority)
         {
-            CmdSpawnMyUnit();
+            if (NetworkServer.connections.Count == 1)
+            {
+                CmdSpawnMySanta();
+            }
+            else
+            {
+                CmdSpawnMyPlayer();
+            }
         }
     }
 
 
     [Command]
-    void CmdSpawnMyUnit()
+    void CmdSpawnMyPlayer()
     {
         GameObject go = Instantiate(playerPersonPrefab);
+        NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
+    }
+
+    [Command]
+    void CmdSpawnMySanta()
+    {
+        GameObject go = Instantiate(santaPersonPrefab);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
     }
 }
