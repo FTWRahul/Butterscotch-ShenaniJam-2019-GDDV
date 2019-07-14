@@ -84,7 +84,7 @@ public class PickUp : MonoBehaviour
                     {
                         checkAmount -= 1;
                         speedSlider += 1;
-                        sliderArea.anchoredPosition = new Vector2(Random.Range(30, 320), 0);
+                        sliderArea.anchoredPosition = new Vector2(Random.Range(-95, 190), 0);
                         Debug.Log("Only " + checkAmount + " left");
                     }
                     else
