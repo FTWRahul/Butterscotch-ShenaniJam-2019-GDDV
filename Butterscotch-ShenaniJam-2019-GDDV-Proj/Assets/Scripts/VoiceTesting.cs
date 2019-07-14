@@ -24,8 +24,14 @@ public class VoiceTesting : NetworkBehaviour
     public float decayMultiplyer;
     bool spawnedCam;
 
+    public Vector3 localPlayer;
+    [SerializeField]
+    bool isRealPlayer;
+    bool StartSync;
+
     Sequence TextBubble;
     Ease easeType;
+    public Color TextColour;
     public override void OnStartClient()
     {
         if (hasAuthority)
@@ -84,13 +90,19 @@ public class VoiceTesting : NetworkBehaviour
         //Debug.Log(speedMultiplyer);
         if(hasAuthority)
         {
-            if(Input.GetButtonDown("Jump"))
+            if(Input.GetKeyDown(KeyCode.P))
+            {
+                //CmdRealPlayerCall(GetComponent<NetworkIdentity>().netId.ToString());
+                RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
+                //StartSync = true;
+            }
+            if (Input.GetButtonDown("Jump"))
             {
                 CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString(), "KeyPressTest");
             }
             if (!spawnedCam)
             {
-
+                
                 playerMove = GetComponent<PlayerMove>();
                 keywordRecog = new KeywordRecognizer(keywordList.ToArray());
                 keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
@@ -102,10 +114,94 @@ public class VoiceTesting : NetworkBehaviour
                 playerMove.speedMultiplyer = speedMultiplyer;
                 speedMultiplyer -= Time.deltaTime * decayMultiplyer;
             }
+
+            if(StartSync)
+            {
+                //CmdFindLocalPlayer(GetComponent<NetworkIdentity>().netId.ToString());
+                //text.transform.LookAt(localPlayer);
+            }
         }
         else
         {
 
+        }
+    }
+
+    [Command]
+    void CmdRealPlayerCall(string id)
+    {
+        RealPlayerCall(connectionToClient, id);
+    }
+
+    [Client]
+    void RealPlayerCall(NetworkConnection target, string id)
+    {
+        if (GetComponent<NetworkIdentity>().netId.ToString() == id)
+        {
+            TextLookAt text = transform.GetComponentInChildren<TextLookAt>();
+            text.target = this.transform;
+            text.isRealPlyaer = true;
+            TextLookAt[] textArray = FindObjectsOfType<TextLookAt>();
+            foreach (TextLookAt textScript in textArray)
+            {
+                if(!isRealPlayer)
+                {
+                    textScript.target = this.transform;
+                    textScript.StartLookAt = true;
+                }
+            }
+        }
+    }
+
+
+
+
+    [Command]
+    void CmdFindLocalPlayer(string identity)
+    {
+      RpcFindLocalPlayer(identity);
+    }
+
+    [ClientRpc]
+    void RpcFindLocalPlayer(string identity)
+    {
+        if(isRealPlayer)
+        {
+            NetworkTransform sendTransform = this.GetComponent<NetworkTransform>();
+            CmdSendPlayerTransform(sendTransform.targetSyncPosition, identity);
+            //NetworkIdentity[] netarray = FindObjectsOfType<NetworkIdentity>();
+            // for (int i = 0; i < netarray.Length; i++)
+            // {
+            //     if(GetComponent<NetworkIdentity>().netId.ToString() == identity)
+            //     {
+            //         Transform sendTransform = this.transform;
+            //         CmdSendPlayerTransform(sendTransform.position, identity);
+            //     }
+            // }
+            // //foreach (NetworkIdentity netId in netarray)
+            //{
+            //    if (GetComponent<NetworkIdentity>().netId.ToString() == identity)
+            //    {
+            //      //netId.gameObject.GetComponent<VoiceTesting>().localPlayer = GetComponent<Transform>();
+            //    }
+            //}
+
+            //BroadcastMessage("SetLocalPlayer", this.transform);
+        }
+    }
+
+    [Command]
+    void CmdSendPlayerTransform(Vector3 inPosition, string id)
+    {
+        RpcSendPlayerTransform(inPosition, id);
+    }
+
+    [ClientRpc]
+    void RpcSendPlayerTransform(Vector3 inPosition, string id)
+    {
+        if(GetComponent<NetworkIdentity>().netId.ToString() == id)
+        {
+            localPlayer = inPosition;
         }
     }
 
@@ -134,7 +230,11 @@ public class VoiceTesting : NetworkBehaviour
             TextBubble = DOTween.Sequence();
             TextBubble.Prepend(text.transform.DOLocalMove(Vector3.up * 2f, 1f).SetEase(easeType));
             TextBubble.Join(text.transform.DOScale(0.01f, 1f).SetEase(easeType));
-            TextBubble.Join(text.GetComponent<Image>().DOColor(Color.red, 1f).SetEase(Ease.Linear));
+            TextBubble.Join(text.GetComponent<Text>().DOColor(TextColour, 1f).SetEase(Ease.Linear));
+        }
+        else
+        {
+            Debug.Log(GetComponent<NetworkIdentity>().netId.ToString() + " Is not the player you are looking for");
         }
     }
 
