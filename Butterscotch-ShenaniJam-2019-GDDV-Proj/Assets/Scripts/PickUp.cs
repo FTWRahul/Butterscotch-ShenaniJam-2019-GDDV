@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class PickUp : MonoBehaviour
 {
@@ -11,48 +12,119 @@ public class PickUp : MonoBehaviour
 
     int checkAmount;
 
+    public GameObject hud;
+    GameObject skillcheck;
+    public RectTransform sliderBackground;
+    public RectTransform sliderDot;
+    public RectTransform sliderArea;
 
+    public TextMeshProUGUI msg;
 
+    int AreaW = 30;
+    float progress;
+    int dir = 1;
+    int speedSlider = 4;
+
+    GameObject gift;
+
+    private void Start()
+    {
+        hud = GameObject.FindGameObjectWithTag("HUD");
+        skillcheck = hud.transform.GetChild(1).gameObject;
+        sliderBackground = skillcheck.transform.GetChild(0).GetComponent<RectTransform>();
+        sliderArea = skillcheck.transform.GetChild(1).GetComponent<RectTransform>();
+        sliderDot = skillcheck.transform.GetChild(2).GetComponent<RectTransform>();
+        msg = hud.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+    }
 
     private void Update()
     {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(dotPos);
+        if (Physics.Raycast(ray, out hit, 100.0f))
+        {
+            if (hit.collider.tag == "Gift")
+            {
+                msg.gameObject.SetActive(true);
+                msg.text = "F for kick";
+            }
+            else
+            {
+                msg.gameObject.SetActive(false);
+            }
+        }
+
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (isChecking)
             {
-                
-                // open slider
-                // generate pos
-                //start moving
-                // Vector2 pos = slider dot pos;
-                // if(pos in the area){
+                if (hit.collider.gameObject == gift)
+                {
+                    float sliderDotPos = sliderDot.anchoredPosition.x;
+
+                    if (sliderDotPos > sliderArea.anchoredPosition.x - AreaW && sliderDotPos < sliderArea.anchoredPosition.x + AreaW)
+                    {
+                        checkAmount -= 1;
+                        speedSlider += 1;
+                        sliderArea.anchoredPosition = new Vector2(Random.Range(30, 320), 0);
+                        Debug.Log("Only " + checkAmount + " left");
+                    }
+                    else
+                    {
+                        Debug.Log("None");
+                        speedSlider = 0;
+                        //close slider
+                        //make sound
+                    }
+
+                }
+                else
+                {
+                    //closeslider
+                    //gift ==null
+                    speedSlider = 0;
+                    isChecking = false;
+                }
+
             }
             else
             {
-                RaycastHit hit;
-                Ray ray = Camera.main.ScreenPointToRay(dotPos);
-                if (Physics.Raycast(ray, out hit, 100.0f))
+                if (hit.collider.tag == "Gift")
                 {
-                    if (hit.collider.tag == "Gift")
-                    {
-                        Debug.Log("You are collecting this gift");
-                        isChecking = true;
-                        
-                        // if player press F and he is now in skill check
-                        //check position of Point in this moment
-                        //if this point in the area open next skill check
-                        // if not close slider
-                        //make sound
-                        //if it was last skill check and player did it right
-                        // destroy gift and add it to amount 
-                    }
+                    gift = hit.collider.gameObject;
                 }
 
-                checkAmount = Random.Range(2, 5);
+                isChecking = true;
+
+                sliderArea.anchoredPosition = new Vector2(Random.Range(30, 320), 0);
+                checkAmount = Random.Range(3, 6);
             }
-            
         }
 
 
+        if (skillcheck.activeSelf == true)
+        {
+            if (sliderDot.anchoredPosition.x <= 5)
+            {
+                dir = 1;
+            }
+            else if (sliderDot.anchoredPosition.x >= 340)
+            {
+                dir = -1;
+            }
+            sliderDot.anchoredPosition += new Vector2(dir, 0) * speedSlider;
+        }
+
+        if (checkAmount <= 0 && isChecking)
+        {
+            Debug.Log("Win");
+            speedSlider = 0;
+            //gift==null
+            //destroy gift
+            //add amount
+        }
+
     }
 }
+

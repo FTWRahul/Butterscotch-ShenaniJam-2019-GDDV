@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 1407860588935678786}
   - component: {fileID: 8950820069290335076}
   - component: {fileID: -8380316140352454180}
+  - component: {fileID: 5973173714108598760}
   m_Layer: 0
   m_Name: PlayerPerson
   m_TagString: Untagged
@@ -205,9 +206,25 @@ MonoBehaviour:
   speedMultiplyerFactor: 0.5
   maxSpeedMultiplyer: 10
   decayMultiplyer: 0.2
-  localPlayer: {x: 0, y: 0, z: 0}
-  isRealPlayer: 0
   TextColour: {r: 1, g: 1, b: 1, a: 0}
+  isRealPlayer: 0
+--- !u!114 &5973173714108598760
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186474669906606463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bee897d4ff4174f8a009a08adb28d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hud: {fileID: 0}
+  sliderBackground: {fileID: 0}
+  sliderDot: {fileID: 0}
+  sliderArea: {fileID: 0}
+  msg: {fileID: 0}
 --- !u!1 &3469280132073664235
 GameObject:
   m_ObjectHideFlags: 0
