@@ -44,6 +44,7 @@ public class SpawnGifts : NetworkBehaviour
         }
     }
 
+    [Command]
     void CmdSpawnGift(Vector3 pos)
     {
         GameObject go = Instantiate(giftPrefab, pos, Quaternion.Euler(0, Random.Range(0, 360), 0), giftsRoot.transform);

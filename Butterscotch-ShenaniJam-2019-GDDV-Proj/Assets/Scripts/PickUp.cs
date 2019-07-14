@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Networking;
 
 public class PickUp : MonoBehaviour
 {
@@ -85,11 +86,11 @@ public class PickUp : MonoBehaviour
                         checkAmount -= 1;
                         speedSlider += 1;
                         sliderArea.anchoredPosition = new Vector2(Random.Range(-95, 190), 0);
-                        Debug.Log("Only " + checkAmount + " left");
+
                     }
                     else
                     {
-                        Debug.Log("None");
+
                         CloseSkillCheck();
                         //make sound
                     }
@@ -125,10 +126,12 @@ public class PickUp : MonoBehaviour
 
         if (checkAmount <= 0 && isChecking)
         {
+            if (GetComponent<GiftDestroyer>() != null)
+            {
+                GetComponent<GiftDestroyer>().CmdDestroyGift(gift);
+            }
             CloseSkillCheck();
-            Debug.Log("Win");
-            //Destroy(gift);
-            //add amount
+
         }
 
         void CloseSkillCheck()
