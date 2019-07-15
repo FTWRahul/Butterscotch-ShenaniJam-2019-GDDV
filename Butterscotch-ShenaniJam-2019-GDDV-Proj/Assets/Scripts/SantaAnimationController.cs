@@ -48,11 +48,25 @@ public class SantaAnimationController : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                if (Cursor.lockState == CursorLockMode.Locked)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+
+
+                Cursor.visible = !Cursor.visible;
+
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.SetActive(!GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.activeSelf);
             }
 
             if (GameObject.FindGameObjectsWithTag("Gift").Length == 0)
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
             }
 
@@ -71,6 +85,8 @@ public class SantaAnimationController : NetworkBehaviour
 
                 if (i == 0)
                 {
+                    Cursor.lockState = CursorLockMode.None;
+                    Cursor.visible = true;
                     GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().winPlayerPanel.SetActive(true);
                 }
             }

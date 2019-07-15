@@ -56,11 +56,25 @@ public class PlayerAnimationController : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                if (Cursor.lockState == CursorLockMode.Locked)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+                }
+                else
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+                }
+
+
+                Cursor.visible = !Cursor.visible;
+
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.SetActive(!GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.activeSelf);
             }
 
             if (GameObject.FindGameObjectsWithTag("Gift").Length == 0)
             {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().winPlayerPanel.SetActive(true);
             }
 
@@ -97,7 +111,11 @@ public class PlayerAnimationController : NetworkBehaviour
             Dead = true;
             PlayerDeath();
             if(hasAuthority)
-            GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
+            {
+                Cursor.lockState = CursorLockMode.None;
+                Cursor.visible = true;
+                GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
+            }
         }
     }
 
