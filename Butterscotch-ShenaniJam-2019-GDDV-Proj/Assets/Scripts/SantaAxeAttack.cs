@@ -33,12 +33,9 @@ public class SantaAxeAttack : NetworkBehaviour
     public void CmdSphereCast()
     {
         RaycastHit hit;
-        Debug.Log("CMD ATTACT FIRED ");
-        //if(Physics.SphereCast(castPoint.transform.localPosition, castDistance, Vector3.forward, out hit))
         Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
         foreach (Collider col in colArry)
         {
-            Debug.Log("SphereCast Success");
             if (col.CompareTag("Player"))
             {
                 Debug.Log("Hit!");
@@ -71,7 +68,6 @@ public class SantaAxeAttack : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        //Gizmos.DrawSphere(transform.position, 1);
         Gizmos.DrawWireSphere(castPoint.transform.position, castDistance);
     }
 }
