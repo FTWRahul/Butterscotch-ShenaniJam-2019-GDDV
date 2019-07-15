@@ -34,29 +34,19 @@ public class SantaAxeAttack : NetworkBehaviour
     {
         RaycastHit hit;
         Debug.Log("CMD ATTACT FIRED ");
-        if(Physics.SphereCast(castPoint.transform.position, castDistance, Vector3.forward, out hit))
+        //if(Physics.SphereCast(castPoint.transform.localPosition, castDistance, Vector3.forward, out hit))
+        Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
+        foreach (Collider col in colArry)
         {
             Debug.Log("SphereCast Success");
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (col.CompareTag("Player"))
             {
                 Debug.Log("Hit!");
-                string netId = hit.collider.GetComponent<NetworkIdentity>().ToString();
+                string netId = col.GetComponent<NetworkIdentity>().ToString();
                 RpcTakeDamage(netId);
             }
-            //try
-            //{
-                
-            //}
-            //catch(Exception e)
-            //{
-            //    Debug.Log(e.Message);
-            //}
-            //finally
-            //{
-            //    //Do other stuff?
-            //}
-
         }
+        
     }
 
     [ClientRpc]
