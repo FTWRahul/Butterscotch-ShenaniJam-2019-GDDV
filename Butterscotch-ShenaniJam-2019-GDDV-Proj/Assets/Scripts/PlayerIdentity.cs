@@ -33,19 +33,8 @@ public class PlayerIdentity : NetworkBehaviour
         playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawns");
         GameObject go = Instantiate(playerPersonPrefab, playerSpawn.transform.GetChild(NetworkServer.connections.Count - 2).transform);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
-
-        Debug.Log(connectionToClient+ "IDENTITY");
-        Invoke("DelayedCall", 10f);
     }
 
-    void DelayedCall()
-    {
-        VoiceTesting[] voiceArry = FindObjectsOfType<VoiceTesting>();
-        foreach (VoiceTesting voiceScript in voiceArry)
-        {
-            voiceScript.RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
-        }
-    }
 
     [Command]
     void CmdSpawnMySanta()

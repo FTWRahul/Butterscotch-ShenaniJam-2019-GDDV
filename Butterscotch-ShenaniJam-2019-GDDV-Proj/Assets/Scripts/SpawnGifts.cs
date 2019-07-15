@@ -10,7 +10,7 @@ public class SpawnGifts : NetworkBehaviour
 
     public List<GameObject> gifts;
 
-    int amount = 1;
+    int amount = 10;
 
     private void Start()
     {
