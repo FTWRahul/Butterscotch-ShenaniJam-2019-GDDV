@@ -64,7 +64,6 @@ public class VoiceTesting : NetworkBehaviour
         {
             if (!spawnedCam)
             {
-                
                 playerMove = GetComponent<PlayerMove>();
                 keywordRecog = new KeywordRecognizer(keywordList.ToArray());
                 keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
