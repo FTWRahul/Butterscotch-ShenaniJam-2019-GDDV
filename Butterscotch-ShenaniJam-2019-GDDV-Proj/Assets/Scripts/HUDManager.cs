@@ -11,6 +11,7 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI health;
     public GameObject deathPanel;
     public GameObject pausePanel;
+    public GameObject winPlayerPanel;
 
 
     private void Update()

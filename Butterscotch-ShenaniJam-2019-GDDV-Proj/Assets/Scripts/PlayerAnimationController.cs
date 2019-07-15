@@ -59,6 +59,11 @@ public class PlayerAnimationController : NetworkBehaviour
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.SetActive(!GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.activeSelf);
             }
 
+            if (GameObject.FindGameObjectsWithTag("Gift").Length == 0)
+            {
+                GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().winPlayerPanel.SetActive(true);
+            }
+
             anim.SetFloat("Horizontal_f", Input.GetAxis("Horizontal"));
             anim.SetFloat("Vertical_f", Input.GetAxis("Vertical"));
         }
