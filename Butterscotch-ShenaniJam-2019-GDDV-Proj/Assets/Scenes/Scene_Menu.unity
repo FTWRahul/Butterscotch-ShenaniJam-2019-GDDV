@@ -48656,6 +48656,7 @@ GameObject:
   - component: {fileID: 998203812}
   - component: {fileID: 998203811}
   - component: {fileID: 998203810}
+  - component: {fileID: 998203814}
   m_Layer: 5
   m_Name: Host_Bt
   m_TagString: Untagged
@@ -48796,6 +48797,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 998203814}
+        m_MethodName: HideMouse
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &998203812
@@ -48835,6 +48847,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 998203808}
   m_CullTransparentMesh: 0
+--- !u!114 &998203814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998203808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a77f8449844bc5b4d94c29c63d7b1328, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1015962874
 GameObject:
   m_ObjectHideFlags: 0
@@ -88964,7 +88988,7 @@ MonoBehaviour:
 
     Evgeniya Glazycheva
 
-    Rahul Poundarik'
+    Rahul Poundarik @FTWRahul'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 04887f4331c5725468773d111805e285, type: 2}
   m_sharedMaterial: {fileID: 7240042701332697109, guid: 04887f4331c5725468773d111805e285,
@@ -89034,10 +89058,10 @@ MonoBehaviour:
   m_margin: {x: -52.679466, y: -13.605706, z: -51.606194, w: -14.776118}
   m_textInfo:
     textComponent: {fileID: 1891614661}
-    characterCount: 52
+    characterCount: 62
     spriteCount: 0
-    spaceCount: 6
-    wordCount: 7
+    spaceCount: 7
+    wordCount: 8
     linkCount: 0
     lineCount: 4
     pageCount: 1

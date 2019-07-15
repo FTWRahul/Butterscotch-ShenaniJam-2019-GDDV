@@ -76,6 +76,7 @@ public class VoiceTesting : NetworkBehaviour
                 keywordRecog = new KeywordRecognizer(keywordList.ToArray());
                 keywordRecog.OnPhraseRecognized += OnPhraseRecognized;
                 keywordRecog.Start();
+                CmdTextBubbles(GetComponent<NetworkIdentity>().netId.ToString(), "TEST");
                 spawnedCam = !spawnedCam;
             }
 
@@ -131,9 +132,9 @@ public class VoiceTesting : NetworkBehaviour
             text.GetComponent<Text>().color = Color.white;
             text.transform.localPosition = Vector3.zero;
             TextBubble = DOTween.Sequence();
-            TextBubble.Prepend(text.transform.DOLocalMove(Vector3.up * 6f, 5f).SetEase(easeType));
-            TextBubble.Join(text.transform.DOScale(0.01f, 5f).SetEase(easeType));
-            TextBubble.Join(text.GetComponent<Text>().DOColor(TextColour, 4f).SetEase(Ease.Linear));
+            TextBubble.Prepend(text.transform.DOLocalMove(Vector3.up * 6.5f, 4.5f).SetEase(easeType));
+            TextBubble.Join(text.transform.DOScale(0.015f, 5f).SetEase(easeType));
+            TextBubble.Join(text.GetComponent<Text>().DOColor(TextColour, 3f).SetEase(Ease.Linear));
         }
         else
         {
