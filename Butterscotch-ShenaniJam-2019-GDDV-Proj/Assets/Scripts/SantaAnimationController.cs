@@ -51,6 +51,32 @@ public class SantaAnimationController : NetworkBehaviour
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.SetActive(!GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.activeSelf);
             }
 
+            if (GameObject.FindGameObjectsWithTag("Gift").Length == 0)
+            {
+                GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
+            }
+
+            if (GameObject.FindGameObjectsWithTag("Players").Length != 0)
+            {
+                int i = GameObject.FindGameObjectsWithTag("Players").Length;
+
+                foreach (var player in GameObject.FindGameObjectsWithTag("Players"))
+                {
+                    if (player.GetComponent<PlayerAnimationController>().Dead)
+                    {
+                        i--;
+                    }
+                    
+                }
+
+                if (i == 0)
+                {
+                    GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().winPlayerPanel.SetActive(true);
+                }
+            }
+
+
+
             anim.SetFloat("Horizontal_f", Input.GetAxis("Horizontal"));
             anim.SetFloat("Vertical_f", Input.GetAxis("Vertical"));
         }
