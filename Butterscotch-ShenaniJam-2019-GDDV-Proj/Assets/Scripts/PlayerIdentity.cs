@@ -34,6 +34,12 @@ public class PlayerIdentity : NetworkBehaviour
         GameObject go = Instantiate(playerPersonPrefab, playerSpawn.transform.GetChild(NetworkServer.connections.Count - 2).transform);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
 
+        Debug.Log(connectionToClient+ "IDENTITY");
+        Invoke("DelayedCall", 10f);
+    }
+
+    void DelayedCall()
+    {
         VoiceTesting[] voiceArry = FindObjectsOfType<VoiceTesting>();
         foreach (VoiceTesting voiceScript in voiceArry)
         {
