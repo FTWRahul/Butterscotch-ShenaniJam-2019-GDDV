@@ -9,6 +9,8 @@ TagManager:
   - HUD
   - HUDManager
   - HUDHealth
+  - PlayerSpawns
+  - SantaSpawn
   layers:
   - Default
   - TransparentFX
