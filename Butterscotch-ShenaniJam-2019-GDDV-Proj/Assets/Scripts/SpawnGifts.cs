@@ -8,13 +8,12 @@ public class SpawnGifts : NetworkBehaviour
     public GameObject[] spawnPositions;
     public GameObject giftsRoot;
 
-    public GameObject giftPrefab;
+    public List<GameObject> gifts;
 
     int amount = 10;
 
     private void Start()
     {
-
         GetSpawnArea();
     }
 
@@ -47,7 +46,7 @@ public class SpawnGifts : NetworkBehaviour
     [Command]
     void CmdSpawnGift(Vector3 pos)
     {
-        GameObject go = Instantiate(giftPrefab, pos, Quaternion.Euler(0, Random.Range(0, 360), 0), giftsRoot.transform);
+        GameObject go = Instantiate(gifts[Random.Range(0, gifts.Count)], pos, Quaternion.Euler(0, Random.Range(0, 360), 0), giftsRoot.transform);
         NetworkServer.Spawn(go);
     }
 }

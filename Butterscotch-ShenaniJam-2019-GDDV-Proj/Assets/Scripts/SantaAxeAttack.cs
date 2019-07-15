@@ -33,30 +33,17 @@ public class SantaAxeAttack : NetworkBehaviour
     public void CmdSphereCast()
     {
         RaycastHit hit;
-        Debug.Log("CMD ATTACT FIRED ");
-        if(Physics.SphereCast(castPoint.transform.position, castDistance, Vector3.forward, out hit))
+        Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
+        foreach (Collider col in colArry)
         {
-            Debug.Log("SphereCast Success");
-            if (hit.collider.gameObject.CompareTag("Player"))
+            if (col.CompareTag("Player"))
             {
                 Debug.Log("Hit!");
-                string netId = hit.collider.GetComponent<NetworkIdentity>().ToString();
+                string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
                 RpcTakeDamage(netId);
             }
-            //try
-            //{
-                
-            //}
-            //catch(Exception e)
-            //{
-            //    Debug.Log(e.Message);
-            //}
-            //finally
-            //{
-            //    //Do other stuff?
-            //}
-
         }
+        
     }
 
     [ClientRpc]
@@ -81,7 +68,6 @@ public class SantaAxeAttack : NetworkBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        //Gizmos.DrawSphere(transform.position, 1);
         Gizmos.DrawWireSphere(castPoint.transform.position, castDistance);
     }
 }
