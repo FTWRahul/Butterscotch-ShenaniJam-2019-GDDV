@@ -11,6 +11,11 @@ public class PlayerAnimationController : NetworkBehaviour
 
     bool variablesAsssigned;
 
+    [SyncVar]
+    public int Health = 5;
+    [SyncVar]
+    public bool Dead;
+
     private void Start()
     {
         anim = GetComponent<Animator>();
@@ -39,17 +44,6 @@ public class PlayerAnimationController : NetworkBehaviour
                 anim.SetBool("Jump", true);
             }
 
-            //if(isDead)
-            //{
-            //anim.SetBool("Dead", true);
-            //}
-
-            //if(recived hit)
-            //{
-            //    anim.SetBool("GetHit",true);
-            //    Invoke("EndHit", 0.5f);
-            //}
-
             if (Input.GetKeyDown(KeyCode.F))
             {
                 anim.SetBool("Kick",true);
@@ -73,4 +67,26 @@ public class PlayerAnimationController : NetworkBehaviour
         anim.SetBool("GetHit", false);
     }
 
+
+    public void TakeDamage()
+    {
+        if(Health > 1 && !Dead)
+        {
+            Debug.Log("Health Remaining : "+ Health);
+            Health--;
+            anim.SetBool("GetHit", true);
+            Invoke("EndHit", 0.5f);
+        }
+        else
+        {
+            Dead = true;
+            PlayerDeath();
+        }
+    }
+
+    public void PlayerDeath()
+    {
+        anim.SetBool("Death", true);
+        GetComponent<PlayerMove>().enabled = false;
+    }
 }

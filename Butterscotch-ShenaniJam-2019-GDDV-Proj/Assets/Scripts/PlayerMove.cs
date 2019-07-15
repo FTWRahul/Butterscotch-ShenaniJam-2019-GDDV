@@ -23,11 +23,6 @@ public class PlayerMove : NetworkBehaviour
 
     public bool spawnedCam;
 
-    [SyncVar]
-    public int Health;
-    [SyncVar]
-    public bool Dead;
-
     void Update()
     {
         if (hasAuthority)
