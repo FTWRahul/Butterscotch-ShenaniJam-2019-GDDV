@@ -78,13 +78,6 @@ public class VoiceTesting : NetworkBehaviour
                 keywordRecog.Start();
                 spawnedCam = !spawnedCam;
             }
-
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                RealPlayerCall(connectionToClient, GetComponent<NetworkIdentity>().netId.ToString());
-                //StartSync = true;
-            }
-
             if (speedMultiplyer > 1)
             {
                 playerMove.speedMultiplyer = speedMultiplyer;
@@ -94,7 +87,7 @@ public class VoiceTesting : NetworkBehaviour
     }
 
     [Client]
-    void RealPlayerCall(NetworkConnection target, string id)
+    public void RealPlayerCall(NetworkConnection target, string id)
     {
         if (GetComponent<NetworkIdentity>().netId.ToString() == id)
         {
