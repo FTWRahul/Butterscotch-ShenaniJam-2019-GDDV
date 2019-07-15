@@ -8,6 +8,8 @@ public class PlayerIdentity : NetworkBehaviour
     public GameObject playerPersonPrefab;
     public GameObject santaPersonPrefab;
     public bool isSanta;
+    public GameObject santaSpawn;
+    public GameObject playerSpawn;
 
     void Start()
     {
@@ -28,14 +30,16 @@ public class PlayerIdentity : NetworkBehaviour
     [Command]
     void CmdSpawnMyPlayer()
     {
-        GameObject go = Instantiate(playerPersonPrefab);
+        playerSpawn = GameObject.FindGameObjectWithTag("PlayerSpawns");
+        GameObject go = Instantiate(playerPersonPrefab, playerSpawn.transform.GetChild(NetworkServer.connections.Count - 2).transform);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
     }
 
     [Command]
     void CmdSpawnMySanta()
     {
-        GameObject go = Instantiate(santaPersonPrefab);
+        santaSpawn = GameObject.FindGameObjectWithTag("SantaSpawn");
+        GameObject go = Instantiate(santaPersonPrefab, santaSpawn.transform);
         NetworkServer.SpawnWithClientAuthority(go, connectionToClient);
     }
 }
