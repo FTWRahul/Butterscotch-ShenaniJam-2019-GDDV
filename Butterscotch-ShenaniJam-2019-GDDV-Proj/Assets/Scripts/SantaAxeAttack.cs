@@ -32,35 +32,18 @@ public class SantaAxeAttack : NetworkBehaviour
     [Command]
     public void CmdSphereCast()
     {
-        RpcFindSanta(GetComponent<NetworkIdentity>().netId.ToString());        
-    }
-    
-    [ClientRpc]
-    public void RpcFindSanta(string inNetId)
-    {
-        if(GetComponent<NetworkIdentity>().netId.ToString() == inNetId)
+        RaycastHit hit;
+        Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
+        foreach (Collider col in colArry)
         {
-            RaycastHit hit;
-            Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
-            foreach (Collider col in colArry)
+            if (col.CompareTag("Player"))
             {
-                if (col.CompareTag("Player"))
-                {
-                    Debug.Log("Hit!");
-                    string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
-                    if (GetComponent<NetworkIdentity>().netId.ToString() == inNetId)
-                    {
-                        CmdSendDamage(netId);
-                    }
-                }
+                Debug.Log("Hit!");
+                string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
+                RpcTakeDamage(netId);
             }
         }
-    }
-
-    [Command]
-    public void CmdSendDamage(string netId)
-    {
-        RpcTakeDamage(netId);
+        
     }
 
     [ClientRpc]
