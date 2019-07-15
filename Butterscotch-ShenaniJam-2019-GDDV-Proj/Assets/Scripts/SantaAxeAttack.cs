@@ -39,7 +39,7 @@ public class SantaAxeAttack : NetworkBehaviour
             if (col.CompareTag("Player"))
             {
                 Debug.Log("Hit!");
-                string netId = col.GetComponent<NetworkIdentity>().ToString();
+                string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
                 RpcTakeDamage(netId);
             }
         }
