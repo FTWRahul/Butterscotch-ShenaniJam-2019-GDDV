@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking.Match;
 using TMPro;
+using UnityEngine.UI;
 
 public class JoinButton : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class JoinButton : MonoBehaviour
     void Awake()
     {
         buttonText = GetComponentInChildren<TextMeshProUGUI>();
+        GetComponent<Button>().onClick.AddListener(JoinMatch);
     }
 
     internal void initialize(MatchInfoSnapshot match, Transform panelTransform)
@@ -22,7 +24,7 @@ public class JoinButton : MonoBehaviour
         transform.localPosition = Vector3.zero;
     }
 
-    public void JoinMatch()
+    private void JoinMatch()
     {
         FindObjectOfType<CustomNetworkManager>().JoinMatch(match);
     }

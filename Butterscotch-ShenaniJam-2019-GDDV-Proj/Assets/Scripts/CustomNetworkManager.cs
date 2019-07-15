@@ -58,4 +58,9 @@ public class CustomNetworkManager : NetworkManager
             //No matches found
         }
     }
+
+    public void SetPlayerName(string name)
+    {
+        playerName = name;
+    }
 }
