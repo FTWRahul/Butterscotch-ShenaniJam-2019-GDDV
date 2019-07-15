@@ -48,16 +48,13 @@ public class SantaAxeAttack : NetworkBehaviour
                 {
                     Debug.Log("Hit!");
                     string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
-                    CmdSendDamage(netId);
+                    if (GetComponent<NetworkIdentity>().netId.ToString() == inNetId)
+                    {
+                        RpcTakeDamage(netId);
+                    }
                 }
             }
         }
-    }
-
-    [Command]
-    public void CmdSendDamage(string inNetID)
-    {
-        RpcTakeDamage(inNetID);
     }
 
     [ClientRpc]
