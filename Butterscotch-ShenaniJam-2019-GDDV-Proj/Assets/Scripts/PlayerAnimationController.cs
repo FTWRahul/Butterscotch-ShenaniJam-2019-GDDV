@@ -68,7 +68,7 @@ public class PlayerAnimationController : NetworkBehaviour
     }
 
     [Client]
-    public void TakeDamage(NetworkConnection target)
+    public void TakeDamage()
     {
         if(Health > 1 && !Dead)
         {

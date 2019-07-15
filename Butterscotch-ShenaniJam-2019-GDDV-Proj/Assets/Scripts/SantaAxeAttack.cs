@@ -32,18 +32,32 @@ public class SantaAxeAttack : NetworkBehaviour
     [Command]
     public void CmdSphereCast()
     {
-        RaycastHit hit;
-        Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
-        foreach (Collider col in colArry)
+        RpcFindSanta(GetComponent<NetworkIdentity>().netId.ToString());        
+    }
+    
+    [ClientRpc]
+    public void RpcFindSanta(string inNetId)
+    {
+        if(GetComponent<NetworkIdentity>().netId.ToString() == inNetId)
         {
-            if (col.CompareTag("Player"))
+            RaycastHit hit;
+            Collider[] colArry = Physics.OverlapSphere(castPoint.transform.position, castDistance);
+            foreach (Collider col in colArry)
             {
-                Debug.Log("Hit!");
-                string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
-                RpcTakeDamage(netId);
+                if (col.CompareTag("Player"))
+                {
+                    Debug.Log("Hit!");
+                    string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
+                    CmdSendDamage(netId);
+                }
             }
         }
-        
+    }
+
+    [Command]
+    public void CmdSendDamage(string inNetID)
+    {
+        RpcTakeDamage(inNetID);
     }
 
     [ClientRpc]
@@ -55,7 +69,7 @@ public class SantaAxeAttack : NetworkBehaviour
             if(NetIdentity.netId.ToString() == inNetId)
             {
                 //Take Damage SyncVar?
-                NetIdentity.GetComponent<PlayerAnimationController>().TakeDamage(connectionToClient);
+                NetIdentity.GetComponent<PlayerAnimationController>().TakeDamage();
             }
         }
     }
