@@ -42496,6 +42496,7 @@ MonoBehaviour:
   health: {fileID: 871847963}
   deathPanel: {fileID: 616021327}
   pausePanel: {fileID: 1010608044}
+  winPlayerPanel: {fileID: 338639626}
 --- !u!4 &1021295786
 Transform:
   m_ObjectHideFlags: 0
