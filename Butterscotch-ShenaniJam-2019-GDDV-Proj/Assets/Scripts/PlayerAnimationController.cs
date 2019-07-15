@@ -26,12 +26,14 @@ public class PlayerAnimationController : NetworkBehaviour
     {
         if(hasAuthority)
         {
-            if(!variablesAsssigned)
+            if (!variablesAsssigned)
             {
                 anim = GetComponent<Animator>();
                 moveCont = GetComponent<CharacterController>();
                 variablesAsssigned = true;
+                GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().health.transform.parent.gameObject.SetActive(true);
             }
+            GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().health.text = Health.ToString();
             anim.SetBool("IsGrounded", moveCont.isGrounded);
 
 
