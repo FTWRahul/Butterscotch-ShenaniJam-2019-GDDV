@@ -56,11 +56,11 @@ public class SantaAnimationController : NetworkBehaviour
                 GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
             }
 
-            if (GameObject.FindGameObjectsWithTag("Players").Length != 0)
+            if (GameObject.FindGameObjectsWithTag("Player").Length != 0)
             {
-                int i = GameObject.FindGameObjectsWithTag("Players").Length;
+                int i = GameObject.FindGameObjectsWithTag("Player").Length;
 
-                foreach (var player in GameObject.FindGameObjectsWithTag("Players"))
+                foreach (var player in GameObject.FindGameObjectsWithTag("Player"))
                 {
                     if (player.GetComponent<PlayerAnimationController>().Dead)
                     {
