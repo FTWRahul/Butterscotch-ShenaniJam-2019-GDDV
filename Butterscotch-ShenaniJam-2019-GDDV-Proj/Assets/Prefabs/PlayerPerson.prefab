@@ -680,7 +680,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speedMultiplyer: 1
-  maxSpeedMultiplyer: 5
+  maxSpeedMultiplyer: 3
   walkSpeed: 7
   jumpForce: 0.25
   gravity: 1
@@ -786,8 +786,9 @@ MonoBehaviour:
   playerAudioSource: {fileID: 0}
   speedMultiplyer: 1
   speedMultiplyerFactor: 0.4
-  maxSpeedMultiplyer: 5
+  maxSpeedMultiplyer: 3
   decayMultiplyer: 0.2
+  easeType: 24
   TextColour: {r: 1, g: 1, b: 1, a: 0}
   isRealPlayer: 0
 --- !u!114 &5973173714108598760
