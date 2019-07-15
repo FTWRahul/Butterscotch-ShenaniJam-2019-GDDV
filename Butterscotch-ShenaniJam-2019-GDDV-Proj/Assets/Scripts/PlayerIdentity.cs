@@ -15,7 +15,7 @@ public class PlayerIdentity : NetworkBehaviour
         {
             if (NetworkServer.connections.Count == 1)
             {
-                CmdSpawnMyPlayer();
+                CmdSpawnMySanta();
             }
             else
             {
