@@ -67,8 +67,8 @@ public class PlayerAnimationController : NetworkBehaviour
         anim.SetBool("GetHit", false);
     }
 
-
-    public void TakeDamage()
+    [Client]
+    public void TakeDamage(NetworkConnection target)
     {
         if(Health > 1 && !Dead)
         {

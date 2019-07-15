@@ -55,7 +55,7 @@ public class SantaAxeAttack : NetworkBehaviour
             if(NetIdentity.netId.ToString() == inNetId)
             {
                 //Take Damage SyncVar?
-                NetIdentity.GetComponent<PlayerAnimationController>().TakeDamage();
+                NetIdentity.GetComponent<PlayerAnimationController>().TakeDamage(connectionToClient);
             }
         }
     }
