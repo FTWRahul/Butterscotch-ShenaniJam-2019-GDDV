@@ -29,25 +29,33 @@ public class PlayerAnimationController : NetworkBehaviour
             }
             anim.SetBool("IsGrounded", moveCont.isGrounded);
 
-            if (Input.GetKeyDown(KeyCode.Space))
+
+            if (moveCont.isGrounded)
+            {
+                anim.SetBool("Jump", false);
+            }
+            else
             {
                 anim.SetBool("Jump", true);
             }
 
             //if(isDead)
             //{
-            //anim.SetTrigger("Dead");
+            //anim.SetBool("Dead", true);
             //}
 
             //if(recived hit)
             //{
-            //    anim.SetTrigger("GetHit");
+            //    anim.SetBool("GetHit",true);
+            //    Invoke("EndHit", 0.5f);
             //}
 
             if (Input.GetKeyDown(KeyCode.F))
             {
-                anim.SetTrigger("Kick");
+                anim.SetBool("Kick",true);
                 anim.SetFloat("KickRandom", Random.value);
+
+                Invoke("EndKick", 0.5f);
             }
 
             anim.SetFloat("Horizontal_f", Input.GetAxis("Horizontal"));
@@ -55,4 +63,14 @@ public class PlayerAnimationController : NetworkBehaviour
         }
         
     }
+
+    void EndKick()
+    {
+        anim.SetBool("Kick", false);
+    }
+    void EndHit()
+    {
+        anim.SetBool("GetHit", false);
+    }
+
 }
