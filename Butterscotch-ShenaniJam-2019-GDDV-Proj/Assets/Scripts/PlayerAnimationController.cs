@@ -31,7 +31,7 @@ public class PlayerAnimationController : NetworkBehaviour
 
             if (Input.GetKeyDown(KeyCode.Space))
             {
-                anim.SetTrigger("Jump");
+                anim.SetBool("Jump", true);
             }
 
             //if(isDead)
