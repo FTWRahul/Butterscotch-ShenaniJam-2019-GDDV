@@ -785,8 +785,8 @@ MonoBehaviour:
   text: {fileID: 6928160134419958936}
   playerAudioSource: {fileID: 0}
   speedMultiplyer: 1
-  speedMultiplyerFactor: 0.5
-  maxSpeedMultiplyer: 10
+  speedMultiplyerFactor: 0.4
+  maxSpeedMultiplyer: 5
   decayMultiplyer: 0.2
   TextColour: {r: 1, g: 1, b: 1, a: 0}
   isRealPlayer: 0
@@ -852,6 +852,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abcb63ec62073f141ac9590a286050fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Health: 5
+  Dead: 0
 --- !u!114 &-5245791013067054628
 MonoBehaviour:
   m_ObjectHideFlags: 0
