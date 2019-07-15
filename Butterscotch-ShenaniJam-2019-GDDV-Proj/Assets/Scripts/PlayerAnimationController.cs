@@ -93,6 +93,7 @@ public class PlayerAnimationController : NetworkBehaviour
         }
         else
         {
+            Health = 0;
             Dead = true;
             PlayerDeath();
             if(hasAuthority)
