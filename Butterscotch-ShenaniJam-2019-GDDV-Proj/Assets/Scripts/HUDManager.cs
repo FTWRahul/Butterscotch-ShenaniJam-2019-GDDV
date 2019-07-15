@@ -10,6 +10,7 @@ public class HUDManager : MonoBehaviour
     public TextMeshProUGUI giftsRemaining;
     public TextMeshProUGUI health;
     public GameObject deathPanel;
+    public GameObject pausePanel;
 
 
     private void Update()
