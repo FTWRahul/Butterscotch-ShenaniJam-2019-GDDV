@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: The 50's
-  productName: Dead by Santa - Butterscotch ShenaniJam 2019
+  productName: Dead by Santa (BSJ-2019)
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.14150941, g: 0.05807226, b: 0.07893159, a: 1}
@@ -279,7 +279,7 @@ PlayerSettings:
   - m_BuildTarget: 
     m_Icons:
     - serializedVersion: 2
-      m_Icon: {fileID: 2800000, guid: de637316ba0da9c4587fb759194f93a1, type: 3}
+      m_Icon: {fileID: 2800000, guid: cabdb9a8386ecdb4b8c34508ddd9c130, type: 3}
       m_Width: 128
       m_Height: 128
       m_Kind: 0
