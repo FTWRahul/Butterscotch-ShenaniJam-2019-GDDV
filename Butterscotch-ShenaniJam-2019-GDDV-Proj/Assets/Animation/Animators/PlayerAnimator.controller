@@ -352,7 +352,7 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 0}
-  - m_Name: Vetical_f
+  - m_Name: Vertical_f
     m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
@@ -557,7 +557,7 @@ BlendTree:
     m_DirectBlendParameter: Horizontal_f
     m_Mirror: 0
   m_BlendParameter: Horizontal_f
-  m_BlendParameterY: Vetical_f
+  m_BlendParameterY: Vertical_f
   m_MinThreshold: 0
   m_MaxThreshold: 1
   m_UseAutomaticThresholds: 1

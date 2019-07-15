@@ -36,10 +36,10 @@ public class PlayerAnimationController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.F))
         {
             anim.SetTrigger("Kick");
-            anim.SetFloat("KickRandom", Random.Range(0, 1));
+            anim.SetFloat("KickRandom", Random.value);
         }
 
-        //anim.SetFloat("Horizontal_f",horizontal(-1,1));
-        //anim.SetFloat("Vertical_f",vertical(-1,1));
+        anim.SetFloat("Horizontal_f",Input.GetAxis("Horizontal"));
+        anim.SetFloat("Vertical_f", Input.GetAxis("Vertical"));
     }
 }

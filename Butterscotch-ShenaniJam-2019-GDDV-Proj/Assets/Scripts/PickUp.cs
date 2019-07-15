@@ -86,11 +86,9 @@ public class PickUp : MonoBehaviour
                         checkAmount -= 1;
                         speedSlider += 1;
                         sliderArea.anchoredPosition = new Vector2(Random.Range(-95, 190), 0);
-
                     }
                     else
                     {
-
                         CloseSkillCheck();
                         //make sound
                     }
@@ -102,11 +100,14 @@ public class PickUp : MonoBehaviour
             }
             else
             {
-                if (hit.collider.tag == "Gift")
+                if (hit.collider != null)
                 {
-                    gift = hit.collider.gameObject;
+                    if (hit.collider.tag == "Gift")
+                    {
+                        gift = hit.collider.gameObject;
+                        ActivateSkillCheck();
+                    }
                 }
-                ActivateSkillCheck();
             }
         }
 
