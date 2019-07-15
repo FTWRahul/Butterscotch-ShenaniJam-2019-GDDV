@@ -19,7 +19,8 @@ public class CustomNetworkManager : NetworkManager
 
     private void OnMatchCreated(bool success, string extendedInfo, MatchInfo responseData)
     {
-        base.StartHost();
+        base.StartHost(responseData);
+        RefreshMatches();
     }
 
     public void RefreshMatches()
@@ -30,6 +31,20 @@ public class CustomNetworkManager : NetworkManager
         }
 
         matchMaker.ListMatches(0,10, "", true, 0,0, HandleListMatchesComplet);
+    }
+
+    internal void JoinMatch(MatchInfoSnapshot match)
+    {
+        if(matchMaker == null)
+        {
+            StartMatchMaker();
+        }
+        matchMaker.JoinMatch(match.networkId, "", "", "", 0, 0, HandleJoinedMatch);
+    }
+
+    private void HandleJoinedMatch(bool success, string extendedInfo, MatchInfo responseData)
+    {
+        StartClient(responseData);
     }
 
     private void HandleListMatchesComplet(bool success, string extendedInfo, List<MatchInfoSnapshot> responseData)

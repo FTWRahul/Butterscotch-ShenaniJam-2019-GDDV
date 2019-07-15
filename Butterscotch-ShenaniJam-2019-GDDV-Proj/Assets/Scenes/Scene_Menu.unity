@@ -93171,7 +93171,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1655803422
 MonoBehaviour:
@@ -93203,7 +93203,6 @@ MonoBehaviour:
   m_SpawnPrefabs:
   - {fileID: 3186474669906606463, guid: a68ac3f2ce7849849b98996ce2464b05, type: 3}
   - {fileID: 3186474669906606463, guid: fe3d331ec3daad64cba3ea01691bfbd9, type: 3}
-  - {fileID: 7266099252174957179, guid: 6ac0d2f70b3a1f3488d9eac038fc8fd1, type: 3}
   - {fileID: 7266099252174957179, guid: d161a6e3329404f40a2cb731d3492ac2, type: 3}
   - {fileID: 7266099252174957179, guid: 69f837efbc1133e4c9f769a94bca82be, type: 3}
   - {fileID: 7266099252174957179, guid: ce0291d5476dc38439f0129c6493ad2f, type: 3}
