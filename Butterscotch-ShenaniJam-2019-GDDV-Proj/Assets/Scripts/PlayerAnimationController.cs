@@ -54,6 +54,11 @@ public class PlayerAnimationController : NetworkBehaviour
                 Invoke("EndKick", 0.5f);
             }
 
+            if (Input.GetKeyDown(KeyCode.Escape))
+            {
+                GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.SetActive(!GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().pausePanel.activeSelf);
+            }
+
             anim.SetFloat("Horizontal_f", Input.GetAxis("Horizontal"));
             anim.SetFloat("Vertical_f", Input.GetAxis("Vertical"));
         }
