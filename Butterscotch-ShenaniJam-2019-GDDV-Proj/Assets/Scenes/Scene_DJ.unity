@@ -54927,7 +54927,12 @@ MonoBehaviour:
   - {fileID: 1918778090}
   - {fileID: 1620538100}
   giftsRoot: {fileID: 555767150}
-  gifts: []
+  gifts:
+  - {fileID: 7266099252174957179, guid: d161a6e3329404f40a2cb731d3492ac2, type: 3}
+  - {fileID: 7266099252174957179, guid: 69f837efbc1133e4c9f769a94bca82be, type: 3}
+  - {fileID: 7266099252174957179, guid: ce0291d5476dc38439f0129c6493ad2f, type: 3}
+  - {fileID: 7266099252174957179, guid: 05dc2d3b805acbd4189f8e9edf18f81b, type: 3}
+  - {fileID: 7266099252174957179, guid: 188425fde2fceb4479b6f664188b1e9c, type: 3}
 --- !u!114 &1251508136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -62773,6 +62778,11 @@ MonoBehaviour:
   - {fileID: 3186474669906606463, guid: a68ac3f2ce7849849b98996ce2464b05, type: 3}
   - {fileID: 3186474669906606463, guid: fe3d331ec3daad64cba3ea01691bfbd9, type: 3}
   - {fileID: 7266099252174957179, guid: 6ac0d2f70b3a1f3488d9eac038fc8fd1, type: 3}
+  - {fileID: 7266099252174957179, guid: d161a6e3329404f40a2cb731d3492ac2, type: 3}
+  - {fileID: 7266099252174957179, guid: 69f837efbc1133e4c9f769a94bca82be, type: 3}
+  - {fileID: 7266099252174957179, guid: ce0291d5476dc38439f0129c6493ad2f, type: 3}
+  - {fileID: 7266099252174957179, guid: 05dc2d3b805acbd4189f8e9edf18f81b, type: 3}
+  - {fileID: 7266099252174957179, guid: 188425fde2fceb4479b6f664188b1e9c, type: 3}
   m_CustomConfig: 0
   m_MaxConnections: 4
   m_ConnectionConfig:
