@@ -83,6 +83,7 @@ public class PlayerAnimationController : NetworkBehaviour
         {
             Dead = true;
             PlayerDeath();
+            GameObject.FindGameObjectWithTag("HUDManager").GetComponent<HUDManager>().deathPanel.SetActive(true);
         }
     }
 
