@@ -50,11 +50,17 @@ public class SantaAxeAttack : NetworkBehaviour
                     string netId = col.GetComponent<NetworkIdentity>().netId.ToString();
                     if (GetComponent<NetworkIdentity>().netId.ToString() == inNetId)
                     {
-                        RpcTakeDamage(netId);
+                        CmdSendDamage(netId);
                     }
                 }
             }
         }
+    }
+
+    [Command]
+    public void CmdSendDamage(string netId)
+    {
+        RpcTakeDamage(netId);
     }
 
     [ClientRpc]
