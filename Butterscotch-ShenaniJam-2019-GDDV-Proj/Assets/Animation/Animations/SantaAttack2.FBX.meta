@@ -773,7 +773,7 @@ ModelImporter:
       curves: []
       events:
       - time: 0.3872549
-        functionName: CmdSphereCast
+        functionName: CallServer
         data: 
         objectReferenceParameter: {fileID: 3186474669906606463, guid: a68ac3f2ce7849849b98996ce2464b05,
           type: 3}

@@ -29,6 +29,11 @@ public class SantaAxeAttack : NetworkBehaviour
         }
     }
 
+    public void CallServer()
+    {
+        CmdSphereCast();
+    }
+
     [Command]
     public void CmdSphereCast()
     {
