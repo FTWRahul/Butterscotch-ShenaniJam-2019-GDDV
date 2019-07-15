@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 4652921227545060810}
   - component: {fileID: 4389851834357701462}
   - component: {fileID: 6350204893047734307}
+  - component: {fileID: 8214449754030523431}
   m_Layer: 0
   m_Name: SantaPerson
   m_TagString: Untagged
@@ -74,8 +75,6 @@ MonoBehaviour:
   cameraTransform: {fileID: 0}
   RayRoot: {fileID: 8687452284984140432}
   spawnedCam: 0
-  Health: 0
-  Dead: 0
 --- !u!143 &3186474669906606453
 CharacterController:
   m_ObjectHideFlags: 0
@@ -220,6 +219,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   castPoint: {fileID: 8797655529536673579}
   castDistance: 1.5
+--- !u!114 &8214449754030523431
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3186474669906606463}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e18e15ed5495c434d969378156376a52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Animator: {fileID: 4652921227545060810}
+  m_ParameterSendBits: 63
+  param0: 
+  param1: 
+  param2: 
+  param3: 
+  param4: 
+  param5: 
 --- !u!1 &3469280132073664235
 GameObject:
   m_ObjectHideFlags: 0
